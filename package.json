@@ -18,7 +18,7 @@
 
     "exports": {
         ".": {
-            "import": "./dist/fesm2020/xl-auth.mjs",
+            "import": "./dist/fesm2022/xl-auth.mjs",
             "types": "./dist/index.d.ts"
         }
     }
