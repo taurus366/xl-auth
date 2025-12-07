@@ -1,8 +1,9 @@
-import { Inject, inject, Injectable } from '@angular/core';
+import { effect, Inject, inject, Injectable, signal } from '@angular/core';
 import { XL_AUTH_CONFIG, XlAuthConfig } from './xl-auth.config';
 import { HttpClient } from '@angular/common/http';
 import { AuthRequest, AuthResponse, UserInfo } from './models';
 import { BehaviorSubject, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -10,7 +11,18 @@ export class AuthService {
     constructor(
         private http: HttpClient,
         @Inject(XL_AUTH_CONFIG) private api: XlAuthConfig
-    ) {}
+    ) {
+        effect(() => {
+            // const token = this.tokenSignal();
+            // console.log(token);
+            // if(token === null) {
+            //     this.router.navigate(['login']);
+            // }
+        });
+    }
+
+    private router = inject(Router);
+    tokenSignal = signal(localStorage.getItem('token'));
 
 
     private sub_api = '/erp/auth';
@@ -20,7 +32,10 @@ export class AuthService {
     login(data: AuthRequest) {
         return this.http
             .post<AuthResponse>(`${this.api.apiUrl}${this.sub_api}/login`, data)
-            .pipe(tap(res => localStorage.setItem('token', res.token)));
+            .pipe(tap(res => {
+                localStorage.setItem('token', res.token);
+                this.tokenSignal.set(res.token);
+            }));
     }
 
     loadUser() {
@@ -32,9 +47,11 @@ export class AuthService {
     logout() {
         localStorage.removeItem('token');
         this.userSubject.next(null);
+        this.tokenSignal.set(null);
     }
 
     isLoggedIn(): boolean {
+        console.log('isLoggedIn');
         return !!localStorage.getItem('token');
     }
 
