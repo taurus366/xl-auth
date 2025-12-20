@@ -18,7 +18,6 @@ export class AuthGuard implements CanActivate {
            return false;
        }
 
-    console.log('test');
        return this.authService.loadUser().pipe(
            map(user => {
                console.log(user);

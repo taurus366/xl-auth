@@ -21,7 +21,7 @@ export class AuthService {
         });
     }
 
-    private router = inject(Router);
+    // private router = inject(Router);
     tokenSignal = signal(localStorage.getItem('token'));
 
 
