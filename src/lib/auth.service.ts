@@ -13,15 +13,15 @@ export class AuthService {
         @Inject(XL_AUTH_CONFIG) private api: XlAuthConfig
     ) {
         effect(() => {
-            // const token = this.tokenSignal();
+            const token = this.tokenSignal();
             // console.log(token);
-            // if(token === null) {
-            //     this.router.navigate(['login']);
-            // }
+            if(token === null) {
+                this.router.navigate(['login']);
+            }
         });
     }
 
-    // private router = inject(Router);
+    private router = inject(Router);
     tokenSignal = signal(localStorage.getItem('token'));
 
 

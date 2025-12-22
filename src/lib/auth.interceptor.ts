@@ -5,7 +5,7 @@ import { XL_AUTH_CONFIG } from './xl-auth.config';
 
 export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
     const auth = inject(AuthService);
-    const config = inject(XL_AUTH_CONFIG);
+    const config = inject<any>(XL_AUTH_CONFIG as any);
     const token = auth.token;
 
     let targetUrl = req.url;
