@@ -60,6 +60,11 @@ import { CommonModule } from '@angular/common';
                         <input pInputText [(ngModel)]="item.phone" class="w-full" />
                     </div>
 
+                    <div class="col-span-12">
+                        <label class="block font-bold mb2">Парола</label>
+                        <input pInputText [(ngModel)]="item.password" class="w-full">
+                    </div>
+
                 </div>
             </ng-template>
 

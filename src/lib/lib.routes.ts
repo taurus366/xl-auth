@@ -1,13 +1,18 @@
 import { Route } from '@angular/router';
 import { UserListComponent } from './user/list';
-// import { XlAuth } from './xl-auth/xl-auth';
+import { registerMenu, registerRoute } from 'xl-util';
 
-// export const xlAuthRoutes: Route[] = [{ path: '', component: XlAuth }];
-
-export const routes: Route[] = [
+export const UserModuleActivator = true; // Просто флаг
+registerRoute([
     {
         path: 'user/list',
-        component: UserListComponent
+        loadComponent: () => import('./user/list').then(c => c.UserListComponent)
     }
-]
+]);
+registerMenu([
+    {
+        label: 'Администрация',
+        items: [{ label: 'Потребители', icon: 'pi pi-users', routerLink: ['/user/list'] }]
+    }
+]);
 

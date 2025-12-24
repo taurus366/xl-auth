@@ -10,7 +10,6 @@ import {DetailService} from './detail.service';
 export class ListService extends BaseListCrud<IUser> {
     listRoute = ROUTES.user.list;
 
-
     constructor() {
         super(inject(DetailService));
     }
