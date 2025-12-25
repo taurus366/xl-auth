@@ -1,5 +1,3 @@
-import { Route } from '@angular/router';
-import { UserListComponent } from './user/list';
 import { registerMenu, registerRoute } from 'xl-util';
 
 export const UserModuleActivator = true; // Просто флаг
