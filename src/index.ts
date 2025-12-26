@@ -10,3 +10,4 @@ export * from './lib/xl-auth.config';
 export * from './lib/provideAuth';     // ако имаш provideAuth()
 
 export * from './lib/user/list';
+export * from './lib/topBar-user/tUser.component';
