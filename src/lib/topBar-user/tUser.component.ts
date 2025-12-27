@@ -6,12 +6,12 @@ import { AuthService } from '../auth.service';
 import { Tooltip } from 'primeng/tooltip';
 import { NgForOf, NgTemplateOutlet } from '@angular/common';
 import { Router } from '@angular/router';
-// import { Input } from 'postcss';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
     selector: 'layout-topbar-menu',
     standalone: true,
-    imports: [StyleClass, Tooltip, NgTemplateOutlet, NgForOf],
+    imports: [StyleClass, Tooltip, NgTemplateOutlet, NgForOf, TranslatePipe],
     template: `
         <ng-template #topbarBtn>
             <button class="layout-topbar-action" pStyleClass="@next" enterFromClass="hidden" enterActiveClass="animate-scalein" leaveToClass="hidden" leaveActiveClass="animate-fadeout" [hideOnOutsideClick]="true" pTooltip="Profile">
@@ -19,7 +19,7 @@ import { Router } from '@angular/router';
                 <span>User</span>
             </button>
             <div class="hidden absolute right-0 top-full mt-2 w-40 p-2 bg-surface-0 shadow-md rounded-md z-50">
-                <button class="p-link flex items-center gap-2 w-full p-2 hover:bg-surface-100 rounded-md" (click)="openProfile()"><i class="pi pi-id-card"></i> Profile</button>
+                <button class="p-link flex items-center gap-2 w-full p-2 hover:bg-surface-100 rounded-md" (click)="openProfile()"><i class="pi pi-id-card"></i> {{ 'PROFILE1' | translate }}</button>
 
                 <ng-container *ngFor="let tpl of registry.submenus()[menuId()]">
                     <ng-container *ngTemplateOutlet="tpl"></ng-container>
