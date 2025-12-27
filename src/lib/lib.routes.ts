@@ -1,5 +1,6 @@
 import { registerMenu, registerRoute , registerTopbarAction} from 'xl-util';
 import {TopBarUserComponent} from './topBar-user/tUser.component';
+import {UserListComponent} from './user/list';
 
 export const UserModuleActivator = true; // Просто флаг
 registerRoute([
@@ -9,12 +10,13 @@ registerRoute([
     }
 ]);
 registerMenu([
-    {
-        label: 'Администрация',
-        items: [{ label: 'Потребители', icon: 'pi pi-users', routerLink: ['/user/list'] }]
-    }
+    // {
+    //     label: 'Администрация',
+    //     items: [{ label: 'Потребители', icon: 'pi pi-users', routerLink: ['/user/list'] }]
+    // }
 ]);
 registerTopbarAction(TopBarUserComponent);
+// registerTopbarAction(UserListComponent);
 
 
 

@@ -5,6 +5,7 @@ import { StyleClass } from 'primeng/styleclass';
 import { AuthService } from '../auth.service';
 import { Tooltip } from 'primeng/tooltip';
 import { NgForOf, NgTemplateOutlet } from '@angular/common';
+import { Router } from '@angular/router';
 // import { Input } from 'postcss';
 
 @Component({
@@ -27,10 +28,13 @@ import { NgForOf, NgTemplateOutlet } from '@angular/common';
                 <button class="p-link flex items-center gap-2 w-full p-2 hover:bg-surface-100 rounded-md text-red-500" (click)="logout()"><i class="pi pi-sign-out"></i> Logout</button>
             </div>
         </ng-template>
+
+        <ng-template #listUser>
+            <button class="p-link flex items-center gap-2 w-full p-2 hover:bg-surface-100 rounded-md" (click)="openUserList()"><i class="pi pi-users"></i> User list</button>
+        </ng-template>
     `
 })
 export class TopBarUserComponent implements AfterViewInit {
-
     // Дефинираме името ТУК, вътре в компонента
     static menuName = 'user';
 
@@ -38,13 +42,16 @@ export class TopBarUserComponent implements AfterViewInit {
     public menuId = input<string>(TopBarUserComponent.menuName);
 
     @ViewChild('topbarBtn') topbarBtn!: TemplateRef<any>;
+    @ViewChild('listUser') listUser!: TemplateRef<any>;
     registry = inject(TopbarRegistryService);
     public authService = inject(AuthService);
+    public r = inject(Router);
 
     ngAfterViewInit() {
         // Когато компонентът се зареди, той се записва в регистъра
         this.registry.registerTemplate(this.topbarBtn as any);
         // this.registry.registerSubmenuAction("user", this.topbarBtn);
+        this.registry.registerSubmenuAction('user', this.listUser);
     }
 
     ngOnDestroy() {
@@ -60,5 +67,9 @@ export class TopBarUserComponent implements AfterViewInit {
         // console.log("Logout clicked");
         // Тук по-късно ще викаш AuthService.logout()
         this.authService.logout();
+    }
+
+    async openUserList() {
+        await this.r.navigate(['user/list']);
     }
 }
