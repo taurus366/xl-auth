@@ -44,7 +44,7 @@ export class TopBarUserComponent implements AfterViewInit {
     ngAfterViewInit() {
         // Когато компонентът се зареди, той се записва в регистъра
         this.registry.registerTemplate(this.topbarBtn as any);
-        this.registry.registerSubmenuAction("user", this.topbarBtn);
+        // this.registry.registerSubmenuAction("user", this.topbarBtn);
     }
 
     ngOnDestroy() {
