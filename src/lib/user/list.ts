@@ -8,11 +8,12 @@ import { Toolbar } from 'primeng/toolbar';
 import { IUser } from './interfaces';
 import { DetailService } from './detail.service';
 import { UserDetailComponent } from './detail';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
     selector: 'user-list',
     standalone: true,
-    imports: [CommonModule, TableModule, ButtonModule, TagModule, Toolbar, UserDetailComponent],
+    imports: [CommonModule, TableModule, ButtonModule, TagModule, Toolbar, UserDetailComponent, TranslatePipe],
     template: `
         <!--        <div class="card">-->
         <p-toolbar class="mb-6">
@@ -41,10 +42,10 @@ import { UserDetailComponent } from './detail';
                     <th>
                         <p-tableHeaderCheckbox />
                     </th>
-                    <th>ИД</th>
-                    <th>Потребител</th>
-                    <th>Имейл</th>
-                    <th>Статус</th>
+                    <th>{{ 'Id' | translate }}</th>
+                    <th>{{'User' | translate}}</th>
+                    <th>{{'Email' | translate}}</th>
+                    <th>{{'Status' | translate}}</th>
                     <th style="width: 8rem"></th>
                 </tr>
             </ng-template>
@@ -55,11 +56,11 @@ import { UserDetailComponent } from './detail';
                         <p-tableCheckbox [value]="user"></p-tableCheckbox>
                     </td>
 
-                    <td>{{user.id}}</td>
-                    <td>{{ user.firstName }} {{user.middleName}} {{ user.lastName }}</td>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.firstName }} {{ user.middleName }} {{ user.lastName }}</td>
                     <td>{{ user.email }}</td>
                     <td>
-                        <p-tag [severity]="user.active ? 'success' : 'danger'" [value]="user.active ? 'Активен' : 'Блокиран'"> </p-tag>
+                        <p-tag [severity]="user.active ? 'success' : 'danger'" [value]=" user.active ? 'Active' : 'Blocked' | translate"> </p-tag>
                     </td>
                     <td>
                         <div class="flex gap-2">
@@ -71,8 +72,6 @@ import { UserDetailComponent } from './detail';
             </ng-template>
         </p-table>
         <!--        </div>-->
-
-
 
         <user-detail></user-detail>
     `

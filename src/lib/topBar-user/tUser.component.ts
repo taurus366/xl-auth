@@ -1,6 +1,6 @@
 // tUser.component.ts
 import { AfterViewInit, Component, inject, input, TemplateRef, ViewChild } from '@angular/core';
-import { TopbarRegistryService } from 'xl-util';
+import { LanguageSelectorComponent, TopbarRegistryService } from 'xl-util';
 import { StyleClass } from 'primeng/styleclass';
 import { AuthService } from '../auth.service';
 import { Tooltip } from 'primeng/tooltip';
@@ -11,7 +11,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 @Component({
     selector: 'layout-topbar-menu',
     standalone: true,
-    imports: [StyleClass, Tooltip, NgTemplateOutlet, NgForOf, TranslatePipe],
+    imports: [StyleClass, Tooltip, NgTemplateOutlet, NgForOf, TranslatePipe, LanguageSelectorComponent],
     template: `
         <ng-template #topbarBtn>
             <button class="layout-topbar-action" pStyleClass="@next" enterFromClass="hidden" enterActiveClass="animate-scalein" leaveToClass="hidden" leaveActiveClass="animate-fadeout" [hideOnOutsideClick]="true" pTooltip="Profile">
@@ -19,18 +19,18 @@ import { TranslatePipe } from '@ngx-translate/core';
                 <span>User</span>
             </button>
             <div class="hidden absolute right-0 top-full mt-2 w-40 p-2 bg-surface-0 shadow-md rounded-md z-50">
-                <button class="p-link flex items-center gap-2 w-full p-2 hover:bg-surface-100 rounded-md" (click)="openProfile()"><i class="pi pi-id-card"></i> {{ 'PROFILE1' | translate }}</button>
+                <button class="p-link flex items-center gap-2 w-full p-2 hover:bg-surface-100 rounded-md" (click)="openProfile()"><i class="pi pi-id-card"></i> {{ 'PROFILE' | translate }}</button>
 
                 <ng-container *ngFor="let tpl of registry.submenus()[menuId()]">
                     <ng-container *ngTemplateOutlet="tpl"></ng-container>
                 </ng-container>
 
-                <button class="p-link flex items-center gap-2 w-full p-2 hover:bg-surface-100 rounded-md text-red-500" (click)="logout()"><i class="pi pi-sign-out"></i> Logout</button>
+                <button class="p-link flex items-center gap-2 w-full p-2 hover:bg-surface-100 rounded-md text-red-500" (click)="logout()"><i class="pi pi-sign-out"></i> {{'Logout' | translate }}</button>
             </div>
         </ng-template>
 
         <ng-template #listUser>
-            <button class="p-link flex items-center gap-2 w-full p-2 hover:bg-surface-100 rounded-md" (click)="openUserList()"><i class="pi pi-users"></i> User list</button>
+            <button class="p-link flex items-center gap-2 w-full p-2 hover:bg-surface-100 rounded-md" (click)="openUserList()"><i class="pi pi-users"></i> {{ 'User_list' | translate }}</button>
         </ng-template>
     `
 })
@@ -57,6 +57,7 @@ export class TopBarUserComponent implements AfterViewInit {
     ngOnDestroy() {
         // Премахваме го точно този шаблон при унищожаване на компонента
         this.registry.removeTemplate(this.topbarBtn as any);
+        this.registry.removeSubmenuAction('user', this.listUser);
     }
 
     openProfile() {
