@@ -51,13 +51,13 @@ export class TopBarUserComponent implements AfterViewInit {
         // Когато компонентът се зареди, той се записва в регистъра
         this.registry.registerTemplate(this.topbarBtn as any);
         // this.registry.registerSubmenuAction("user", this.topbarBtn);
-        this.registry.registerSubmenuAction('user', this.listUser);
+        this.registry.registerSubmenuAction(TopBarUserComponent.menuName, this.listUser);
     }
 
     ngOnDestroy() {
         // Премахваме го точно този шаблон при унищожаване на компонента
         this.registry.removeTemplate(this.topbarBtn as any);
-        this.registry.removeSubmenuAction('user', this.listUser);
+        this.registry.removeSubmenuAction(TopBarUserComponent.menuName, this.listUser);
     }
 
     openProfile() {
