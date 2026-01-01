@@ -2,11 +2,9 @@
     "name": "xl-auth",
     "version": "0.0.1",
     "peerDependencies": {
-        "@angular/common": "^20.0.0",
-        "@angular/core": "^20.0.0"
+        "@angular/common": "*",
+        "@angular/core": "*",
+        "xl-util":"*"
     },
-    "sideEffects": false,
-    "dependencies": {
-        "xl-util": "github:taurus366/xl-util"
-    }
+    "sideEffects": false
 }

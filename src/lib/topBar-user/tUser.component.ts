@@ -1,6 +1,6 @@
 // tUser.component.ts
 import { AfterViewInit, Component, inject, input, TemplateRef, ViewChild } from '@angular/core';
-import { LanguageSelectorComponent, TopbarRegistryService } from 'xl-util';
+import { TopbarRegistryService } from 'xl-util';
 import { StyleClass } from 'primeng/styleclass';
 import { AuthService } from '../auth.service';
 import { Tooltip } from 'primeng/tooltip';
@@ -11,7 +11,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 @Component({
     selector: 'layout-topbar-menu',
     standalone: true,
-    imports: [StyleClass, Tooltip, NgTemplateOutlet, NgForOf, TranslatePipe, LanguageSelectorComponent],
+    imports: [StyleClass, Tooltip, NgTemplateOutlet, NgForOf, TranslatePipe],
     template: `
         <ng-template #topbarBtn>
             <button class="layout-topbar-action" pStyleClass="@next" enterFromClass="hidden" enterActiveClass="animate-scalein" leaveToClass="hidden" leaveActiveClass="animate-fadeout" [hideOnOutsideClick]="true" pTooltip="Profile">
