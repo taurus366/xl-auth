@@ -59,7 +59,7 @@ import { TranslateService } from '@ngx-translate/core';
                         <label class="block font-bold mb2">Парола</label>
                         <input pInputText [(ngModel)]="item.password" class="w-full" />
                     </div>
-                    <button type="button" pButton icon="pi pi-search" (click)="openLookup()"></button>
+<!--                    <button type="button" pButton icon="pi pi-search" (click)="openLookup()"></button>-->
                 </div>
             </ng-template>
 
