@@ -1,7 +1,10 @@
 import { inject } from '@angular/core';
-import { HttpInterceptorFn } from '@angular/common/http';
+import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { XL_AUTH_CONFIG } from './xl-auth.config';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { MessageService } from 'primeng/api';
 
 // export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
 //     const auth = inject(AuthService);
@@ -41,6 +44,7 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
     const auth = inject(AuthService);
     const config = inject<any>(XL_AUTH_CONFIG as any);
     const token = auth.token;
+    const messageService = inject(MessageService);
 
     let targetUrl = req.url;
 
@@ -65,5 +69,26 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
         setHeaders: { 'Authorization': `Bearer ${token}` }
     }) : req.clone({ url: targetUrl });
 
-    return next(authReq);
+    // return next(authReq);
+    return next(authReq).pipe(
+        catchError((error: HttpErrorResponse) => {
+            let errorDetail = 'Възникна системна грешка';
+
+            if (error.error) {
+                // Ако бекендът връща обект с "message" или просто низ
+                errorDetail = error.error.message || error.error || error.statusText;
+            }
+
+            // Показваме Toast автоматично
+            messageService.add({
+                severity: 'error',
+                summary: 'Грешка',
+                detail: errorDetail,
+                life: 5000 // 5 секунди
+            });
+
+            // Предаваме грешката надолу, ако компонентът все пак иска да я обработи
+            return throwError(() => error);
+        })
+    );
 };
