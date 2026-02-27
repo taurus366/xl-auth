@@ -46,7 +46,7 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
     const config = inject<any>(XL_AUTH_CONFIG as any);
     const token = auth.token;
     const messageService = inject(MessageService);
-    const tr = inject(TranslateService);
+    // const tr = inject(TranslateService);
 
     let targetUrl = req.url;
 
@@ -84,7 +84,7 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
             // Показваме Toast автоматично
             messageService.add({
                 severity: 'error',
-                summary: tr.instant('Error'),
+                // summary: tr.instant('Error'),
                 detail: errorDetail,
                 sticky: true // Съобщението стои, докато потребителят не го затвори
             });
